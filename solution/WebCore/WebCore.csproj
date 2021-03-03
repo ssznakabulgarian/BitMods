@@ -1,0 +1,14 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net5.0</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\ControlCore\ControlCore.csproj" />
+    <ProjectReference Include="..\Core\Core.csproj" />
+    <ProjectReference Include="..\EmbedIO\EmbedIO.csproj" />
+    <ProjectReference Include="..\Swan\Swan.csproj" />
+  </ItemGroup>
+
+</Project>

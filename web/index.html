@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=0" />
+
+	<title></title>
+	<link rel="shortcut icon" href="favicon.png" />
+	<link href="main.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+	<div id="MainMenu">
+		<div id="CreateAccount">Create Account</div>
+		<div id="ResetPassword">Reset password</div>
+		<div id="Login">Login</div>
+		<div id="Logout">Logout</div>
+		<div id="DeleteAccount">Delete account</div>
+		<div id="ChangeAccount">Change account</div>
+		<div id="PersonalInformation">Personal info</div>
+		<div id="Local">Local</div>
+		<div id="Editor">Editor</div>
+		<div id="BotSearch">Bot search</div>
+		<div id="ProgramSearch">Program search</div>
+	</div>
+	<div id="CreateAccount" class="MainContent">
+		<label>Email:</label><input type="text" /><br />
+		<label>Screen name:</label><input type="text" /><br />
+		<label>Password:</label><input type="text" /><br />
+		<label>Repeat password:</label><input type="text" /><br />
+	</div>
+	<div id="ResetPassword" class="MainContent">
+		<label>Email:</label><input type="text" /><br />
+	</div>
+	<div id="Login" class="MainContent">
+		<label>Email:</label><input type="text" /><br />
+		<label>Password:</label><input type="text" /><br />
+	</div>
+	<div id="Logout" class="MainContent">
+	</div>
+	<div id="DeleteAccount" class="MainContent">
+		<label>DeleteAccount:</label><input type="text" /><br />
+	</div>
+	<div id="ChangeAccount" class="MainContent">
+		<label>Screen name:</label><input type="text" /><br />
+		<label>Password:</label><input type="text" /><br />
+		<label>Repeat password:</label><input type="text" /><br />
+	</div>
+	<div id="PersonalInformation" class="MainContent">
+		List the collected personal information.
+	</div>
+	<div id="Local" class="MainContent">
+		<div style="display:inline-block;vertical-align:top;border:1px solid black;padding:10px;">
+			COM 1<br />
+			COM 2<br />
+			COM 3<br />
+		</div>
+		<button style="veritcal-align:top">&gt; Connect &gt;</button>
+		<div style="display:inline-block;vertical-align:top;border:1px solid black;padding:10px;">
+			<input type="text" value="Bot 1" /><button>disconnect</button><br />
+			<input type="text" value="Bot 2" /><button>disconnect</button><br />
+		</div>
+		<button style="veritcal-align:top">&gt; Share &gt;</button>
+		<div style="display:inline-block;vertical-align:top;border:1px solid black;padding:10px;">
+			<input type="text" value="Shared Bot 1" /><button>cancel</button><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sharing options: private/public code: <input type="text" value="RTHRWTH" /><br /><br />
+			<input type="text" value="Shared Bot 2" /><button>cancel</button><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sharing options: private/public code: <input type="text" value="RTHRWTH" /><br /><br />
+		</div>
+	</div>
+	<div id="Editor" class="MainContent">
+		<div style="position:absolute;left:0px;width:200px;top:0px;bottom:0px;border-right: 1px solid #666666;padding:6px;">
+			<select><option>Servo</option><option>Camera</option></select><button>Add</button><br /><br />
+			<div style="width:100%;border:1px solid #999999;">
+				Servo <br />
+				id: <input type="text" value="servo1"/><br/ >
+				assign: <select><option>DERG3243</option><option>DERG3223</option></select>
+			</div><br /><br />
+			<div style="width:100%;border:1px solid #999999;">
+				360 <br />
+				id: <input type="text" value="circ1"/><br/ >
+				assign: <select><option>DERG3243</option><option>DERG3223</option></select>
+			</div><br /><br />
+			<div style="width:100%;border:1px solid #999999; ">
+				Servo <br />
+				id: <input type="text" value="servo2"/><br/ >
+				assign: <select><option>DERG3243</option><option>DERG3223</option></select>
+			</div><br /><br />
+		</div>
+		<div style="position:absolute;right:0px;width:200px;top:0px;bottom:0px;border-left: 1px solid #666666;padding:6px;">
+			<select><option>Remote bot 1</option><option>Bot 1</option><option>Bot 22</option></select><button>Release</button><br /><br />
+			<div style="width:100%;border:1px solid #999999; ">
+				Servo <br />
+				global id: <input type="text" value="DERG3243"/><br/ >
+				position: <input type="text" value="35"/><button>set</button><br/ >
+				<button>rotate left</button><button>rotate right</button>
+			</div><br /><br />
+			<div style="width:100%;border:1px solid #999999; ">
+				360 <br />
+				global id: <input type="text" value="DERG3223"/><br/ >
+				speed: <input type="text" value="-35"/><button>set</button><br/ >
+				<button>increase</button><button>decrease</button>
+			</div><br /><br />
+		</div>
+		<div style="position:absolute;left:230px;right:230px;top:0px;bottom:0px;">
+			<button>Compile</button><button>Start</button><button>Stop</button><br /><br />
+			<textarea style="width:100%;height:200px">Program code. In the future multiple files should be allowed here.</textarea><br /><br />
+			<input type="text" value="Program input during run"/><button>Send</button><br /><br />
+			<textarea style="width:100%;height:200px">Program output during run</textarea><br /><br />
+			<div style="background:#808080; width:100%;height:300px;">
+				In the future some sort of editor that allow the user to place controls for input and output: buttons, indicators etc.
+			</div>
+		</div>
+	</div>
+	<div id="BotSearch" class="MainContent">
+		Search with code: <input type="text" value="RTHWRTHWTRH" /><br /><br />
+		<table>
+			<thead>
+				<tr><th>Owner</th><th>Name</th><th>Status</th><th>Action</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>test</td><td>Bot 4</td><td>available</td><td><button style="veritcal-align:top">Use</button></td></tr>
+				<tr><td>test 2</td><td>Bot 6</td><td>in use</td><td></td></tr>
+				<tr><td>somebody</td><td>Bot 1</td><td>available</td><td><button style="veritcal-align:top">Use</button></td></tr>
+			</tbody>
+		</table>
+	</div>
+	<div id="ProgramSearch" class="MainContent">
+		Search with keyword: <input type="text" value="car" /><br /><br />
+		<table>
+			<thead>
+				<tr><th>Publisher</th><th>Name</th><th>Keywords</th><th>Action</th></tr>
+			</thead>
+			<tbody>
+				<tr><td>test</td><td>Self driving</td><td>car ai</td><td><button style="veritcal-align:top">Open</button></td></tr>
+				<tr><td>somebody</td><td>Loader</td><td>machine lifting</td><td><button style="veritcal-align:top">Open</button></td></tr>
+			</tbody>
+		</table>
+	</div>
+	
+<script type = "text/javascript">
+	var contentDivs = document.querySelectorAll(".MainContent");
+	var list = document.querySelectorAll("#MainMenu div");
+	for(var i = 0; i < list.length; i++) {
+		let button = list[i];
+		button.addEventListener("click", function() {
+			for(var j = 0; j < contentDivs.length; j++) {
+				contentDivs[j].style.display = (contentDivs[j].id == button.id) ? "block" : "none";
+			}
+		});
+	}
+	
+	var webSocket = new WebSocket("ws://localhost:9999/socket", "comm");
+	
+	webSocket.onopen = function (event) {
+		console.log("Web socket opened");
+		webSocket.send("LockBot:" + JSON.stringify({BotId: "abc"}));
+	};
+	
+	webSocket.onmessage = function (event) {
+		console.log("Web socket message", event.data);
+	};
+	
+	webSocket.onclose = function (event) {
+		console.log("Web socket closed");
+	};
+	
+	webSocket.onerror = function (event) {
+		console.log("Web socket error");
+	};
+	
+</script>
+</body>
+</html>
