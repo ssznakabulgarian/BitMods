@@ -1,14 +1,12 @@
 //#define MEGA
-#define DEBUG_QUEUE
+//#define DEBUG_QUEUE
 
 #include "DeviceBase.h"
 #include "DeviceBaseImpl.h"
 
 void setup()
 {
-#ifdef DEBUG_QUEUE
-	Serial.begin(9600);
-#endif
+	//Serial.begin(9600);
 	InitializeDevice(10, 9);
 }
 

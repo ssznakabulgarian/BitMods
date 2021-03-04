@@ -6,7 +6,7 @@ byte responseDataChecksum = 0;
 uint ControllerBusOutPin;
 uint ControllerBusProbePin;
 
-bool addressAvailable[256] = { true }; //B00000000 and B11111111 are not valid device addresses
+bool addressAvailable[256]; //B00000000 and B11111111 are not valid device addresses
 
 Device* deviceList[256];
 int deviceListNextIndex = 0;
@@ -83,7 +83,7 @@ void SendByte(byte b)
     SendBit(1);
 }
 
-bool SendMessage(byte command, byte address, uint length = 0, byte* data = 0)
+bool SendMessage(byte command, byte address, uint length = 0, byte* data = 0, int attempts = 2)
 {
     //setup header
     length &= 0xffff; //discard all bits to the left of the sixteenth
@@ -165,53 +165,48 @@ bool SendMessage(byte command, byte address, uint length = 0, byte* data = 0)
     }
     #endif
 
+    /*if (!success && attempts) {
+        return SendMessage(command, address, length, data, attempts - 1);
+    }*/
+
     return success;
 }
 
-int GetDeviceInfo(byte address, Device* output)
+bool GetDeviceInfo(byte address, Device* output)
 {
     if (SendMessage(COMMAND_GET_INFO, address))
     {
-        if (responseDataLength == 2)
+        if (responseDataLength == 2 && output != nullptr)
         {
             //process the device info
-            if (output != nullptr)
-            {
-                output->address = address;
-                output->type = responseData[0];
-                output->hasOutput = responseData[1];
-            }
-            return 1;
+            output->address = address;
+            output->type = responseData[0];
+            output->hasOutput = responseData[1];
+            return true;
         }
-        return ERROR_STATUS_RESPONSE_INVALID;
     }
-    return ERROR_SEND_MESSAGE_FAILED;
+    return false;
 }
 
-//returns "send message failed", "discovery failed" or 1 (success)
-int DiscoverDevice(Device* output)
+bool DiscoverDevice(Device* output)
 {
     //select a new available address
     uint newAddress = 1;
     while (!addressAvailable[newAddress] && newAddress < 255) newAddress++;
-    if (newAddress == 255) return ERROR_NO_AVAILABLE_ADDRESSES;
+    if (newAddress == 255) return false;
     if (SendMessage(COMMAND_DISCOVER, newAddress))
     {
         if (responseDataLength == 16)
         {
-            switch (GetDeviceInfo(newAddress, output)) {
-            case ERROR_SEND_MESSAGE_FAILED:
-                return ERROR_SEND_MESSAGE_FAILED;
-            case ERROR_STATUS_RESPONSE_INVALID:
-                return ERROR_DISCOVERY_FAILED;
-            default:
+            if (GetDeviceInfo(newAddress, output))
+            {
                 output->address = newAddress;
-                return 1;
+                addressAvailable[newAddress] = false;
+                return true;
             }
         }
-        return ERROR_DISCOVERY_FAILED;
     }
-    return ERROR_SEND_MESSAGE_FAILED;
+    return false;
 }
 
 void InitializeController(int busProbePin, int busOutPin)

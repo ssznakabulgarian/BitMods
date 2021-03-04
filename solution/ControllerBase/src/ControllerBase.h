@@ -8,12 +8,6 @@
 #define busOutLowC LOW
 #define busOutHighC HIGH
 
-//error codes
-#define ERROR_STATUS_RESPONSE_INVALID -1
-#define ERROR_SEND_MESSAGE_FAILED -2
-#define ERROR_DISCOVERY_FAILED -3
-#define ERROR_NO_AVAILABLE_ADDRESSES -4
-
 //message characteristics
 #define delayBeforeACK (maximumZeroCount - 1) * bitLength
 
@@ -39,8 +33,8 @@ public:
 
 void InitializeController(int busProbePin, int busOutPin);
 void ControllerOnBusRising();
-bool SendMessage(byte command, byte address, uint length, byte* data);
-int GetDeviceInfo(byte address, Device* output);
-int DiscoverDevice(Device* output);
+bool SendMessage(byte command, byte address, uint length, byte* data, int attempts);
+bool GetDeviceInfo(byte address, Device* output);
+bool DiscoverDevice(Device* output);
 
 #endif

@@ -1,79 +1,94 @@
 //#define MEGA 
-#define DEBUG_QUEUE
+//#define DEBUG_QUEUE
 
 #include "ControllerBase.h"
 #include "ControllerBaseImpl.h"
 
-Device d;
-
 void setup()
 {
-#ifdef DEBUG_QUEUE
 	Serial.begin(9600);
-#endif
 	InitializeController(9,10);
 }
 
-byte sb = 0;
-int speed = 90;
-int sc = 10;
-
 void loop() {
-	if (d.address == 0) {
-		Serial.print("Disconvering...");
-		int outcome = DiscoverDevice(&d);
-		Serial.print("discover:");
-		Serial.println(outcome);
-		speed = 90;
-		sc = 1;
+	//attempt discovery
+	Device* tmp = new Device();
+	if (DiscoverDevice(tmp))
+	{
+		Serial.println(micros());
+		//update device list
+		*deviceList[deviceListNextIndex++] = *tmp;
+
+		//start over
+		return;
 	}
-	if (d.address != 0) {
-		LOG(1, 5);
-		int outcome = GetDeviceInfo(d.address, &d);
-		LOG(1, 6);
-		Serial.print("info:");
-		Serial.println(outcome);
+	
+	//check for missing devices
+	for (int i = 0; i < deviceListNextIndex; i++)
+	{
+		if (!GetDeviceInfo(deviceList[i]->address, deviceList[i]))
+		{
+			addressAvailable[deviceList[i]->address] = true;
+			deviceList[i] = deviceList[--deviceListNextIndex];
+		}
+	}
+	
+	//check for messages from PC
+	while (Serial.available()) {
+		byte command = Serial.read();
+		byte address = 0;
+		byte bodyLength = 0;
+		byte body[256] = {0};
 
-		responseDataLength = 0;
-		byte arr[6];
-		arr[0] = sb;
-		arr[1] = sb + 1;
-		arr[2] = sb + 2;
-		arr[3] = sb + 3;
-		arr[4] = sb + 4;
-		arr[5] = sb + 5;
-		SendMessage(5, d.address, 6, arr);
-
-		bool ok = false;
-		if (responseDataLength == 12) {
-			ok = true;
-			for (int i = 0; i < 6; i++) {
-				if (responseData[i * 2] != arr[i]) {
-					ok = false;
+		switch (command) {
+			case 97:
+				//dump device list
+				for (int i = 0; i < deviceListNextIndex; i++)
+				{
+					Serial.print(deviceList[i]->address);
+					Serial.print(deviceList[i]->type);
 				}
-			}
-		}
+				break;
+			case 98:
+				//get device data
+				while (!Serial.available()) {}
+				address = Serial.read();
+				if (SendMessage(COMMAND_GET_DATA, address))
+				{
+					Serial.print(responseDataLength);
+					for(int i = 0; i< responseDataLength; i++)
+					{
+						Serial.print(responseData[i]);
+					}
+				}
+				else
+				{
+					Serial.print('e');
+				}
+				break;
+			case 99:
+				//send payload to device
+				while (!Serial.available()) {}
+				address = Serial.read();
+				while (!Serial.available()) {}
+				bodyLength = Serial.read();
+				
+				for (int i = 0; i < bodyLength; i++)
+				{
+					while (!Serial.available()) {}
+					body[i] = Serial.read();
+				}
 
-		arr[0] = speed;
-		SendMessage(6, d.address, 1, arr);
-		speed += sc;
-		if (speed >= 180) {
-			speed = 180;
-			sc = -1;
-		}
-		if (speed <= 0) {
-			speed = 0;
-			sc = 1;
-		}
-
-		Serial.print("ok:");
-		Serial.println(ok ? "yes" : "no");
-
-		if (!ok) {
-			d.address = 0;
+				if (SendMessage(COMMAND_EXECUTE, address, bodyLength, body))
+				{
+					Serial.print('c');
+				}
+				else
+				{
+					Serial.print('e');
+				}
+				break;
 		}
 	}
-
-	dumpLog();
-	delay(2000);
+	delay(3000);
 }

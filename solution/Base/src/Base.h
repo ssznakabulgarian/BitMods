@@ -15,6 +15,10 @@
 #define ulong unsigned long
 #endif
 
+#ifndef byte
+#define byte unsigned char
+#endif
+
 //clock characteristics
 #ifdef MEGA
 #define CYCLES_PER_MICRO_SECOND 16
