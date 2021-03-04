@@ -22,6 +22,7 @@ void loop()
 	}
 }
 
+//TODO: Move the get info command handling to the library
 void ComputeResponse(byte command, uint messageDataLength, byte* messageData, byte& responseLength, byte* response)
 {
 	lastCommandTime = micros();
@@ -32,7 +33,7 @@ void ComputeResponse(byte command, uint messageDataLength, byte* messageData, by
 		response[0] = DEVICE_TYPE_SERVO_180;
 		response[1] = 0;
 		break;
-	case 5:
+	case 5://tmp for testing
 		responseLength = messageDataLength * 2;
 		for (int i = 0; i < messageDataLength; i++) {
 			response[i * 2] = messageData[i];

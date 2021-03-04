@@ -71,7 +71,13 @@ void InitializeDevice(uint32_t _busProbePin, uint32_t _busOutPin)
     //set up bus interrupts
     attachInterrupt(digitalPinToInterrupt(busProbePin), DeviceOnBusFalling, FALLING);
     //attachInterrupt(digitalPinToInterrupt(busProbePin), DeviceOnBusRising, RISING);
+
     //TODO: fix rising interrupt issues
+    //fix idea:
+    //set up a global variable that indicates whether we are sending a '1' (i.e. logic high, +5V, etc.) bit during this pulse
+    //update that variable whenever we are about to respond to a discovery and reset it afterwards
+    //re-enable the interrupt for discovery AS IS
+    //add a check to the ISR that uses the aforementioned variable and sets the message status to MESSAGE_STATUS_IGNORED if and only if we are not currently responding to a discovery with a '1' bit
 #endif
 
 #ifdef MEGA
