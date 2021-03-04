@@ -12,12 +12,12 @@ void setup()
 
 void loop() {
 	//attempt discovery
-	Device* tmp = new Device();
-	if (DiscoverDevice(tmp))
+	if (DiscoverDevice(&deviceList[deviceListNextIndex]))
 	{
 		Serial.println(micros());
-		//update device list
-		*deviceList[deviceListNextIndex++] = *tmp;
+		
+		//update device list index
+		deviceListNextIndex++;
 
 		//start over
 		return;

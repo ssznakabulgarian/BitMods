@@ -8,7 +8,7 @@ uint ControllerBusProbePin;
 
 bool addressAvailable[256]; //B00000000 and B11111111 are not valid device addresses
 
-Device* deviceList[256];
+Device deviceList[256];
 int deviceListNextIndex = 0;
 
 ulong targetTime = 0;
