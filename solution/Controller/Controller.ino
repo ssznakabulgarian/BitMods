@@ -8,15 +8,15 @@ void setup()
 {
 	Serial.begin(9600);
 	Serial.setTimeout(100);
-	InitializeController(9,10);
+	InitializeController(9, 10);
 }
 
 void loop() {
 	//attempt discovery
 	if (DiscoverDevice(&deviceList[deviceListNextIndex]))
 	{
-		Serial.println(micros());
-		
+		Serial.printf("discovered new device: %d", deviceList[deviceListNextIndex].address);
+
 		//update device list index
 		deviceListNextIndex++;
 
@@ -31,6 +31,10 @@ void loop() {
 		{
 			addressAvailable[deviceList[i].address] = true;
 			deviceList[i] = deviceList[--deviceListNextIndex];
+		}
+		else
+		{
+			Serial.println(deviceList[i].address);
 		}
 	}
 	

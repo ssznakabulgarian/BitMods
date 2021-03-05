@@ -31,6 +31,8 @@ byte deviceSerialNumber[16];
 bool isDeviceDiscovered = false;
 byte firstByte;
 byte currentByte;
+byte deviceType = 0;
+bool hasOutput = false;
 
 void InitializeDevice(uint32_t _busProbePin, uint32_t _busOutPin)
 {
@@ -125,9 +127,13 @@ void InitializeDevice(uint32_t _busProbePin, uint32_t _busOutPin)
 
     NVIC_EnableIRQ(TC4_IRQn);
 
+    //reenable timer
     responseTimer->CTRLA.reg |= TC_CTRLA_ENABLE;
+
+    //await changes
     while (responseTimer->STATUS.bit.SYNCBUSY) {}
 
+    //stop the timer since it's not in use
     responseTimer->CTRLBSET.reg |= TC_CTRLBSET_CMD_STOP;
 
     //enable interrupt on compare channel 0 match
@@ -350,6 +356,11 @@ void DeviceOnBusFalling()
                         LOG(4, 1);
                         responseLength = 16;
                         memcpy((char*)response, (char*)deviceSerialNumber, 16); //ReSharper shows a false error
+                    }
+                    else if (command == COMMAND_GET_INFO) {
+                        responseLength = 2;
+                        response[0] = deviceType;
+                        response[1] = hasOutput;
                     }
                     else
                     {

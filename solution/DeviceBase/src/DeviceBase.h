@@ -3,8 +3,13 @@
 
 #include "Base.h"
 
+#ifdef TESTING_DIRECT_CONNECTION
+#define busOutLowD LOW
+#define busOutHighD HIGH
+#else
 #define busOutLowD HIGH
 #define busOutHighD LOW
+#endif
 
 #define queueLength 64
 
