@@ -7,6 +7,7 @@
 void setup()
 {
 	Serial.begin(9600);
+	Serial.setTimeout(100);
 	InitializeController(9,10);
 }
 
@@ -26,9 +27,9 @@ void loop() {
 	//check for missing devices
 	for (int i = 0; i < deviceListNextIndex; i++)
 	{
-		if (!GetDeviceInfo(deviceList[i]->address, deviceList[i]))
+		if (!GetDeviceInfo(deviceList[i].address, &deviceList[i]))
 		{
-			addressAvailable[deviceList[i]->address] = true;
+			addressAvailable[deviceList[i].address] = true;
 			deviceList[i] = deviceList[--deviceListNextIndex];
 		}
 	}
@@ -45,8 +46,8 @@ void loop() {
 				//dump device list
 				for (int i = 0; i < deviceListNextIndex; i++)
 				{
-					Serial.print(deviceList[i]->address);
-					Serial.print(deviceList[i]->type);
+					Serial.print(deviceList[i].address);
+					Serial.print(deviceList[i].type);
 				}
 				break;
 			case 98:
@@ -56,36 +57,33 @@ void loop() {
 				if (SendMessage(COMMAND_GET_DATA, address))
 				{
 					Serial.print(responseDataLength);
-					for(int i = 0; i< responseDataLength; i++)
+					for(int i = 0; i < responseDataLength; i++)
 					{
 						Serial.print(responseData[i]);
 					}
 				}
 				else
 				{
-					Serial.print('e');
+					Serial.print(0);
 				}
 				break;
 			case 99:
 				//send payload to device
-				while (!Serial.available()) {}
-				address = Serial.read();
-				while (!Serial.available()) {}
-				bodyLength = Serial.read();
+				Serial.readBytes((char*) &address, 1);
+				Serial.readBytes((char*) &bodyLength, 1);
 				
 				for (int i = 0; i < bodyLength; i++)
 				{
-					while (!Serial.available()) {}
-					body[i] = Serial.read();
+					Serial.readBytes((char*) &body[i], 1);
 				}
 
 				if (SendMessage(COMMAND_EXECUTE, address, bodyLength, body))
 				{
-					Serial.print('c');
+					Serial.print(1);
 				}
 				else
 				{
-					Serial.print('e');
+					Serial.print(0);
 				}
 				break;
 		}
