@@ -15,7 +15,7 @@ void loop() {
 	//attempt discovery
 	if (DiscoverDevice(&deviceList[deviceListNextIndex]))
 	{
-		Serial.printf("discovered new device: %d", deviceList[deviceListNextIndex].address);
+		Serial.printf("discovered new device: %d\n", deviceList[deviceListNextIndex].address);
 
 		//update device list index
 		deviceListNextIndex++;
@@ -29,12 +29,13 @@ void loop() {
 	{
 		if (!GetDeviceInfo(deviceList[i].address, &deviceList[i]))
 		{
+			Serial.printf("device at %d lost\n", deviceList[i].address);
 			addressAvailable[deviceList[i].address] = true;
 			deviceList[i] = deviceList[--deviceListNextIndex];
 		}
 		else
 		{
-			Serial.println(deviceList[i].address);
+			Serial.printf("device at %d respondeed to checkup\n", deviceList[i].address);
 		}
 	}
 	
@@ -83,7 +84,7 @@ void loop() {
 
 				if (SendMessage(COMMAND_EXECUTE, address, bodyLength, body))
 				{
-					Serial.print(1);
+					if(responseDataLength==1) Serial.print(responseData[0]);
 				}
 				else
 				{

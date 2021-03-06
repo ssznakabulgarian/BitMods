@@ -15,7 +15,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Testing", "Testing\Testing.
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Base", "Base\Base.vcxitems", "{4BBE113E-E7CF-4370-B89B-1BD05F9C546D}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XiaoPortTest", "XiaoPortTest\XiaoPortTest.vcxproj", "{4FB30992-815C-4CA6-8B5D-B1354A407834}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "XiaoServoOnlyTest", "XiaoPortTest\XiaoPortTest.vcxproj", "{4FB30992-815C-4CA6-8B5D-B1354A407834}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Application and WebServer", "Application and WebServer", "{F0DF2A8C-46FC-4CE3-8466-69FD4C06A2F4}"
 EndProject
@@ -37,14 +37,22 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebCore", "WebCore\WebCore.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebServer", "WebServer\WebServer.csproj", "{B1097FC0-779B-4248-8EFA-B4A93BBA7C69}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Servo", "Servo\Servo.vcxitems", "{6CC3750A-934A-464B-A7CD-6CB59A9453C5}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ServoDevice", "ServoDevice\ServoDevice.vcxproj", "{C2DF20E0-00EA-44E4-9BB9-C9AB4D6574D0}"
+EndProject
 Global
 	GlobalSection(SharedMSBuildProjectFiles) = preSolution
 		ControllerBase\ControllerBase.vcxitems*{00eeac9b-d6d2-41dd-9553-36290b1f882d}*SharedItemsImports = 9
 		Base\Base.vcxitems*{4bbe113e-e7cf-4370-b89b-1bd05f9c546d}*SharedItemsImports = 9
 		DeviceBase\DeviceBase.vcxitems*{63a47e5d-fd07-453f-a2bb-1223882c2135}*SharedItemsImports = 9
+		Servo\Servo.vcxitems*{6cc3750a-934a-464b-a7cd-6cb59a9453c5}*SharedItemsImports = 9
 		Base\Base.vcxitems*{7f3449b8-177a-4885-b8e1-6a9da1c6072e}*SharedItemsImports = 4
 		ControllerBase\ControllerBase.vcxitems*{7f3449b8-177a-4885-b8e1-6a9da1c6072e}*SharedItemsImports = 4
 		DeviceBase\DeviceBase.vcxitems*{7f3449b8-177a-4885-b8e1-6a9da1c6072e}*SharedItemsImports = 4
+		Base\Base.vcxitems*{c2df20e0-00ea-44e4-9bb9-c9ab4d6574d0}*SharedItemsImports = 4
+		DeviceBase\DeviceBase.vcxitems*{c2df20e0-00ea-44e4-9bb9-c9ab4d6574d0}*SharedItemsImports = 4
+		Servo\Servo.vcxitems*{c2df20e0-00ea-44e4-9bb9-c9ab4d6574d0}*SharedItemsImports = 4
 		Base\Base.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
 		ControllerBase\ControllerBase.vcxitems*{c5f80730-f44f-4478-bdae-6634efc2ca88}*SharedItemsImports = 4
 		Base\Base.vcxitems*{d438f463-6f47-4ed4-a029-9766518ff6b7}*SharedItemsImports = 4
@@ -145,6 +153,12 @@ Global
 		{B1097FC0-779B-4248-8EFA-B4A93BBA7C69}.Release|Any CPU.Build.0 = Release|Any CPU
 		{B1097FC0-779B-4248-8EFA-B4A93BBA7C69}.Release|x86.ActiveCfg = Release|Any CPU
 		{B1097FC0-779B-4248-8EFA-B4A93BBA7C69}.Release|x86.Build.0 = Release|Any CPU
+		{C2DF20E0-00EA-44E4-9BB9-C9AB4D6574D0}.Debug|Any CPU.ActiveCfg = Debug|Win32
+		{C2DF20E0-00EA-44E4-9BB9-C9AB4D6574D0}.Debug|x86.ActiveCfg = Debug|Win32
+		{C2DF20E0-00EA-44E4-9BB9-C9AB4D6574D0}.Debug|x86.Build.0 = Debug|Win32
+		{C2DF20E0-00EA-44E4-9BB9-C9AB4D6574D0}.Release|Any CPU.ActiveCfg = Release|Win32
+		{C2DF20E0-00EA-44E4-9BB9-C9AB4D6574D0}.Release|x86.ActiveCfg = Release|Win32
+		{C2DF20E0-00EA-44E4-9BB9-C9AB4D6574D0}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -165,6 +179,8 @@ Global
 		{23E2616E-8F2D-4E06-B153-16B227BD58B1} = {F0DF2A8C-46FC-4CE3-8466-69FD4C06A2F4}
 		{95E528D2-8221-4212-BBFF-9E529227E12C} = {F0DF2A8C-46FC-4CE3-8466-69FD4C06A2F4}
 		{B1097FC0-779B-4248-8EFA-B4A93BBA7C69} = {F0DF2A8C-46FC-4CE3-8466-69FD4C06A2F4}
+		{6CC3750A-934A-464B-A7CD-6CB59A9453C5} = {0752A2E7-A08C-4525-8E21-96297AD397DE}
+		{C2DF20E0-00EA-44E4-9BB9-C9AB4D6574D0} = {0752A2E7-A08C-4525-8E21-96297AD397DE}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {2E08D8D1-4FDC-45D9-891C-D26A5C1F8F99}

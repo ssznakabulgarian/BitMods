@@ -428,6 +428,6 @@ char 	*strchrnul(const char *, int) {
 
 #endif
 
-#include "XiaoServoOnlyTest.ino"
+#include "ServoDevice.ino"
 #endif
 #endif

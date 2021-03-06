@@ -8,6 +8,8 @@
 
 byte servoPinNumber = 2;
 TcCount16* const servoTimer = (TcCount16*)TC3;
+TcCount16* const responseTimer = (TcCount16*)TC4;
+TcCount16* const discoveryTimer = (TcCount16*)TC5;
 bool servoRunning = false;
 bool servoPinState = false;
 volatile unsigned int servoUpTime = 4500;
@@ -21,31 +23,52 @@ void initServo(byte pinNumber) {
     pinMode(servoPinNumber, OUTPUT);
     digitalWrite(servoPinNumber, LOW);
 
-    //enable usage of timers (TC2 and TC3)
-    REG_GCLK_CLKCTRL = (unsigned short)(GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK0 | GCLK_CLKCTRL_ID(GCM_TCC2_TC3));
+    REG_GCLK_CLKCTRL = (unsigned short)(GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK0 | GCLK_CLKCTRL_ID(GCM_TCC2_TC3) );
 
-    //await registry changes
     while (GCLK->STATUS.bit.SYNCBUSY) {}
 
-    //disable the timers while configuring them
     servoTimer->CTRLA.reg &= ~TC_CTRLA_ENABLE;
 
-    //set the mode, wavegen and prescaler
+
+    //-----------------------------------------------------------
     servoTimer->CTRLA.reg |= TC_CTRLA_MODE_COUNT16 | TC_CTRLA_WAVEGEN_MFRQ | TC_CTRLA_PRESCALER_DIV16;
     servoTimer->CC[0].reg = 46875;
-
     while (servoTimer->STATUS.bit.SYNCBUSY) {}
-
-    //reset interrupts register
+    //-----------------------------------------------------------
     servoTimer->INTENSET.reg = 0;
     servoTimer->INTENSET.bit.MC0 = 1;
-
     NVIC_EnableIRQ(TC3_IRQn);
-
     servoTimer->CTRLA.reg |= TC_CTRLA_ENABLE;
     while (servoTimer->STATUS.bit.SYNCBUSY) {}
-
     servoTimer->CTRLBSET.reg |= TC_CTRLBSET_CMD_STOP;
+   
+    REG_GCLK_CLKCTRL = (unsigned short)(GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK0 | GCLK_CLKCTRL_ID(GCM_TC4_TC5));
+    responseTimer->CTRLA.reg &= ~TC_CTRLA_ENABLE;
+    discoveryTimer->CTRLA.reg &= ~TC_CTRLA_ENABLE;
+    //-----------------------------------------------------------
+    responseTimer->CTRLA.reg |= TC_CTRLA_MODE_COUNT16 | TC_CTRLA_WAVEGEN_MFRQ | TC_CTRLA_PRESCALER_DIV1024;
+    responseTimer->CC[0].reg =  1000*clockCyclesPerMicrosecond();
+    while (responseTimer->STATUS.bit.SYNCBUSY) {}
+    //-----------------------------------------------------------
+    discoveryTimer->CTRLA.reg |= TC_CTRLA_MODE_COUNT16 | TC_CTRLA_WAVEGEN_MFRQ | TC_CTRLA_PRESCALER_DIV1;
+    discoveryTimer->CC[0].reg = 20 * CYCLES_PER_MICRO_SECOND;
+    while (discoveryTimer->STATUS.bit.SYNCBUSY) {}
+
+
+    //-----------------------------------------------------------
+    responseTimer->INTENSET.reg = 0;
+    responseTimer->INTENSET.bit.MC0 = 1;
+    NVIC_EnableIRQ(TC4_IRQn);
+    responseTimer->CTRLA.reg |= TC_CTRLA_ENABLE;
+    while (responseTimer->STATUS.bit.SYNCBUSY) {}
+    responseTimer->CTRLBSET.reg |= TC_CTRLBSET_CMD_STOP;
+    //-----------------------------------------------------------
+    discoveryTimer->INTENSET.reg = 0;
+    discoveryTimer->INTENSET.bit.MC0 = 1;
+    NVIC_EnableIRQ(TC5_IRQn);
+    discoveryTimer->CTRLA.reg |= TC_CTRLA_ENABLE;
+    while (discoveryTimer->STATUS.bit.SYNCBUSY) {}
+    discoveryTimer->CTRLBSET.reg |= TC_CTRLBSET_CMD_STOP;
 }
 
 void startServo() {
@@ -81,7 +104,16 @@ void setServoValue(unsigned int value) {
 }
 
 ulong pulseCount = 0;
+ulong pulses = 0;
 
+void TC4_Handler() {
+    if (responseTimer->INTFLAG.bit.MC0 == 1)
+    {
+        pulses++;
+    responseTimer->INTFLAG.bit.MC0 = 1;
+    }
+}
+void TC5_Handler() {}
 void TC3_Handler() {
     if (servoTimer->INTFLAG.bit.MC0 == 1) {
         pulseCount++;
@@ -107,17 +139,22 @@ void setup() {
     configServo(500, 2500, 20000);
     setServoValue(500);
     startServo();
+    responseTimer->CTRLBSET.reg |= TC_CTRLBSET_CMD_RETRIGGER;
 }
 
 void loop() {
-    int value = Serial.parseInt();
-    if (value > 0) {
-        setServoValue(value);
-        Serial.print("Set: ");
-        Serial.println(value);
+    if (Serial.available()){
+        int value = Serial.parseInt();
+        if (value > 0) {
+            setServoValue(value);
+            Serial.print("Set: ");
+            Serial.println(value);
+        }
     }
     else {
-        Serial.println(pulseCount);
+        Serial.println(servoUpTime);
     }
+    Serial.printf("pulses: %d\n", pulses);
+    delay(100);
 }
 

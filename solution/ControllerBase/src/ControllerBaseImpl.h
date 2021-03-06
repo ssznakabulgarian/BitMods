@@ -165,9 +165,9 @@ bool SendMessage(byte command, byte address, uint length = 0, byte* data = 0, in
     }
     #endif
 
-    /*if (!success && attempts) {
+    if (!success && attempts) {
         return SendMessage(command, address, length, data, attempts - 1);
-    }*/
+    }
 
     return success;
 }
@@ -184,6 +184,7 @@ bool GetDeviceInfo(byte address, Device* output)
             output->hasOutput = responseData[1];
             return true;
         }
+        Serial.printf("strange conditions occured: at %d\n", address);
     }
     return false;
 }

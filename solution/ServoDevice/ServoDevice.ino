@@ -3,11 +3,13 @@
 
 #include "DeviceBase.h"
 #include "DeviceBaseImpl.h"
+#include "Servo.h"
 
 void setup()
 {
 	//Serial.begin(9600);
 	InitializeDevice(10, 9);
+	InitializeServo(1);
 }
 
 void loop()
@@ -26,10 +28,17 @@ void ComputeResponse(byte command, uint messageDataLength, byte* messageData, by
 {
 	switch (command)
 	{
-	case 5://tmp for testing
-		responseLength = messageDataLength * 2;
-		for (int i = 0; i < messageDataLength; i++) {
-			response[i * 2] = messageData[i];
+	case COMMAND_EXECUTE:
+		if (messageDataLength == 1)
+		{
+			setServoValue(messageData[0]);
+			responseLength = 1;
+			response[0] = 'c'; //success
+		}
+		else
+		{
+			responseLength = 1;
+			response[0] = 'e'; //error
 		}
 		break;
 	default:

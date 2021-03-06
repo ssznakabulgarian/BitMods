@@ -311,6 +311,8 @@ void DeviceOnBusFalling()
                 }
                 else
                 {
+                    lastCommandTime = micros();
+
                     if (hasLengthByte0)
                     {
                         messageStatus = MESSAGE_STATUS_AWAITING_LENGTH_BYTE0;

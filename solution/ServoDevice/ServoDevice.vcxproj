@@ -1,0 +1,132 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C2DF20E0-00EA-44E4-9BB9-C9AB4D6574D0}</ProjectGuid>
+    <RootNamespace>ServoDevice</RootNamespace>
+    <ProjectName>ServoDevice</ProjectName>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>
+    </PlatformToolset>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+    <PlatformToolset>v141</PlatformToolset>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+    <Import Project="..\Base\Base.vcxitems" Label="Shared" />
+    <Import Project="..\DeviceBase\DeviceBase.vcxitems" Label="Shared" />
+    <Import Project="..\Servo\Servo.vcxitems" Label="Shared" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup />
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)..\ServoDevice;$(ProjectDir)..\DeviceBase\src;$(ProjectDir)..\Base\src;$(ProjectDir)..\Servo\src;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\1.8.1\cores\arduino;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\1.8.1\cores\arduino\avr;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\1.8.1\cores\arduino\libb64;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\1.8.1\cores\arduino\TinyUSB;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\1.8.1\cores\arduino\USB;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\1.8.1\variants\XIAO_m0;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\1.8.1\cores\arduino\TinyUSB\Adafruit_TinyUSB_ArduinoCore;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\1.8.1\cores\arduino\TinyUSB\Adafruit_TinyUSB_ArduinoCore\tinyusb\src;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\5.4.0\CMSIS\Core\Include\;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\5.4.0\CMSIS\DSP\Include\;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS-Atmel\1.2.1\CMSIS-Atmel\CMSIS\Device\ATMEL\;$(ProjectDir)..\SERVOD~1;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\arm-none-eabi-gcc\7-2017q4\arm-none-eabi\include\c++\4.8.3;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\arm-none-eabi-gcc\7-2017q4\arm-none-eabi\include\c++\4.8.3\arm-none-eabi;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\arm-none-eabi-gcc\7-2017q4\arm-none-eabi\include\c++\4.8.3\bits;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\arm-none-eabi-gcc\7-2017q4\arm-none-eabi\include;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\arm-none-eabi-gcc\7-2017q4\arm-none-eabi\include\sys;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\1.8.1\system;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\avr;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\hardware\samd\usb;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\arm-none-eabi-gcc\7-2017q4\lib\gcc\arm-none-eabi\4.8.3\include;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\5.4.0\Device\ATMEL\samd21\include\component;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\CMSIS-Atmel\1.2.0\CMSIS\Device\ATMEL\samd21\include\component;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\CMSIS-Atmel\1.2.0\CMSIS\Device\ATMEL\samd21\include\instance;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\pio;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\CMSIS-Atmel\1.2.0\CMSIS\Device\ATMEL\samd21\include\component;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\5.4.0;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\5.4.0\Device\ATMEL\samd21\include;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\5.4.0\CMSIS\include;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\5.4.0\Device\ATMEL\samd21\include\component;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\5.4.0\Device\ATMEL\samd21\include\instance;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\5.4.0\Device\ATMEL\samd21\include\pio;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\5.4.0\Device\ATMEL\samd21\include\component;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\component;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\instance;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\pio;$(ProjectDir)..\..\..\..\AppData\Local\arduino15\packages\Seeeduino\tools\CMSIS\CMSIS-Atmel\1.1.0\CMSIS\Device\ATMEL\samd21\include\component;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <ForcedIncludeFiles>$(ProjectDir)__vm\.ServoDevice.vsarduino.h;%(ForcedIncludeFiles)</ForcedIncludeFiles>
+      <IgnoreStandardIncludePath>true</IgnoreStandardIncludePath>
+      <PreprocessorDefinitions>_VMDEBUG=1;F_CPU=48000000L;ARDUINO=108013;ARDUINO_SEEED_XIAO_M0;ARDUINO_ARCH_SAMD;ARDUINO_SAMD_ZERO;__SAMD21__;__SAMD21G18A__;ARM_MATH_CM0PLUS;SEEED_XIAO_M0;USB_VID=0x2886;USB_PID=0x802F;USBCON;USB_CONFIG_POWER=100;__cplusplus=201103L;_VMICRO_INTELLISENSE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ProjectCapability Include="VisualMicro" />
+  </ItemGroup>
+  <PropertyGroup>
+    <DebuggerFlavor>VisualMicroDebugger</DebuggerFlavor>
+  </PropertyGroup>
+  <ItemGroup>
+    <None Include="ServoDevice.ino">
+      <FileType>CppCode</FileType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="src\arduino folders read me.txt">
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="__vm\.ServoDevice.vsarduino.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties config.Debug.arduino.upload.port="COM11" config.Debug.customdebug_Seeeduino_seeed_XIAO_m0_debugger_type="universal" />
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>

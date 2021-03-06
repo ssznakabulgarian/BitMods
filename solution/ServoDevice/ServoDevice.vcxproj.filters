@@ -15,13 +15,13 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <None Include="ServoDevice.ino" />
     <None Include="src\arduino folders read me.txt">
       <Filter>Misc Files</Filter>
     </None>
-    <None Include="XiaoServoOnlyTest.ino" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="__vm\.XiaoPortTest.vsarduino.h">
+    <ClInclude Include="__vm\.ServoDevice.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
